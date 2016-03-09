@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import processing.core.PApplet;
 import processing.opengl.PGLES;
 import processing.opengl.PGraphicsOpenGL;
+import processing.opengl.PSurfaceGLES;
 import android.hardware.display.DisplayManager;
 
 
@@ -97,15 +98,14 @@ public class PWallpaper extends WallpaperService implements PContainer {
 
 
       public void initRenderer() {
+        PSurfaceGLES surf = (PSurfaceGLES)(sketch.surface);
 
-
-        g3 = (PGraphicsOpenGL)(sketch.g);
         int quality = sketch.sketchQuality();
         if (1 < quality) {
-          setEGLConfigChooser(((PGLES)g3.pgl).getConfigChooser(quality));
+          setEGLConfigChooser(surf.getConfigChooser(quality));
         }
         // The renderer can be set only once.
-        setRenderer(((PGLES)g3.pgl).getRenderer());
+        setRenderer(surf.getRenderer());
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
       }
 
