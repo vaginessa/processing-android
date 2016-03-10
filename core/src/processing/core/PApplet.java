@@ -1612,18 +1612,39 @@ public class PApplet extends Object implements PConstants, Runnable {
       }
       pg = new PGraphics3D();
     } else {
+
+
       Class<?> rendererClass = null;
       Constructor<?> constructor = null;
-      try {
-        // The context class loader doesn't work:
-        //rendererClass = Thread.currentThread().getContextClassLoader().loadClass(irenderer);
-        // even though it should, according to this discussion:
-        // http://code.google.com/p/android/issues/detail?id=11101
-        // While the method that is not supposed to work, using the class loader, does:
-        rendererClass = this.getClass().getClassLoader().loadClass(renderer);
-      } catch (ClassNotFoundException cnfe) {
-        throw new RuntimeException("Missing renderer class");
-      }
+
+//      try {
+//          rendererClass = Class.forName(renderer);
+//      } catch (ClassNotFoundException exception) {
+//          String message = String.format(
+//                  "Error: Could not resolve renderer class name: %s", renderer);
+//          throw new RuntimeException(message, exception);
+//      }
+
+    try {
+    // The context class loader doesn't work:
+    rendererClass = Thread.currentThread().getContextClassLoader().loadClass(renderer);
+    // even though it should, according to this discussion:
+    // http://code.google.com/p/android/issues/detail?id=11101
+    // While the method that is not supposed to work, using the class loader, does:
+//    rendererClass = this.getClass().getClassLoader().loadClass(renderer);
+  } catch (ClassNotFoundException cnfe) {
+    throw new RuntimeException("Missing renderer class");
+  }
+
+//      try {
+//        constructor = rendererClass.getConstructor();
+//      } catch (Exception exception) {
+//        throw new RuntimeException(
+//                "Error: Failed to initialize custom OpenGL renderer",
+//                exception);
+//      }
+
+
 
       if (rendererClass != null) {
         try {

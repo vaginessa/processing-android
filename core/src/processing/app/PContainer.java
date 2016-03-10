@@ -7,7 +7,6 @@ abstract public interface PContainer extends PConstants {
   static public final int FRAGMENT  = 0;
   static public final int WALLPAPER = 1;
   static public final int WATCHFACE = 2;
-  static public final int CARDBOARD = 3;
 
   public void initDimensions();
   public int getWidth();

@@ -37,16 +37,16 @@ import processing.core.PSurface;
 
 public class PSurfaceGLES implements PSurface, PConstants {
 
-  private PContainer container;
-  private PGraphics graphics;
+  protected PContainer container;
+  protected PGraphics graphics;
 
-  private PApplet sketch;
+  protected PApplet sketch;
 
-  private Activity activity;
-  private WallpaperService wallpaper;
+  protected Activity activity;
+  protected WallpaperService wallpaper;
+  protected View view;
 
-  private View view;
-  private SurfaceView surface;
+  protected SurfaceView surface;
 
   public PGLES pgl;
 
@@ -56,12 +56,15 @@ public class PSurfaceGLES implements PSurface, PConstants {
   protected static AndroidRenderer renderer;
   protected static AndroidConfigChooser configChooser;
 
-
-  public PSurfaceGLES(PGraphics graphics, PContainer container, SurfaceView view) {
+  public PSurfaceGLES(PGraphics graphics, PContainer container) {
     this.sketch = graphics.parent;
     this.graphics = graphics;
     this.container = container;
     this.pgl = (PGLES)((PGraphicsOpenGL)graphics).pgl;
+  }
+
+  public PSurfaceGLES(PGraphics graphics, PContainer container, SurfaceView view) {
+    this(graphics, container);
 
     if (container.getKind() == PContainer.FRAGMENT) {
       PFragment frag = (PFragment)container;
