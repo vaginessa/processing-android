@@ -21,6 +21,7 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.EGLConfigChooser;
 import android.opengl.GLSurfaceView.Renderer;
 import android.service.wallpaper.WallpaperService;
+import android.support.wearable.watchface.Gles2WatchFaceService;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -44,6 +45,8 @@ public class PSurfaceGLES implements PSurface, PConstants {
 
   protected Activity activity;
   protected WallpaperService wallpaper;
+  protected Gles2WatchFaceService watchface;
+
   protected View view;
 
   protected SurfaceView surface;
@@ -73,6 +76,9 @@ public class PSurfaceGLES implements PSurface, PConstants {
     } else if (container.getKind() == PContainer.WALLPAPER) {
       wallpaper = (WallpaperService)container;
       if (view == null) surface = new SketchSurfaceViewGL(wallpaper);
+    } else if (container.getKind() == PContainer.WATCHFACE) {
+      watchface = (Gles2WatchFaceService)container;
+      surface = null;
     }
     if (view != null) surface = view;
   }
@@ -261,6 +267,8 @@ public class PSurfaceGLES implements PSurface, PConstants {
       return activity.getAssets();
     } else if (container.getKind() == PContainer.WALLPAPER) {
       return wallpaper.getBaseContext().getAssets();
+    } else if (container.getKind() == PContainer.WATCHFACE) {
+      return watchface.getBaseContext().getAssets();
     }
     return null;
   }
@@ -332,6 +340,8 @@ public class PSurfaceGLES implements PSurface, PConstants {
       return activity.getComponentName().getPackageName();
     } else if (container.getKind() == PContainer.WALLPAPER) {
       return wallpaper.getPackageName();
+    } else if (container.getKind() == PContainer.WATCHFACE) {
+      return watchface.getPackageName();
     }
     return "";
   }
@@ -351,6 +361,9 @@ public class PSurfaceGLES implements PSurface, PConstants {
       return activity.getFilesDir();
     } else if (container.getKind() == PContainer.WALLPAPER) {
       return wallpaper.getFilesDir();
+    } else if (container.getKind() == PContainer.WATCHFACE) {
+      return watchface.getFilesDir();
+
     }
     return null;
   }
@@ -372,6 +385,8 @@ public class PSurfaceGLES implements PSurface, PConstants {
       return activity.getFileStreamPath(path);
     } else if (container.getKind() == PContainer.WALLPAPER) {
       return wallpaper.getFileStreamPath(path);
+    } else if (container.getKind() == PContainer.WATCHFACE) {
+      return watchface.getFileStreamPath(path);
     }
     return null;
   }

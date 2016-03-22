@@ -40,6 +40,7 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.EGLConfigChooser;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.GLU;
+import android.view.SurfaceView;
 import processing.core.PApplet;
 import processing.opengl.tess.PGLU;
 import processing.opengl.tess.PGLUtessellator;
@@ -123,7 +124,10 @@ public class PGLES extends PGL {
 
   @Override
   protected void initSurface(int antialias) {
-    glview = (GLSurfaceView)sketch.getSurfaceView();
+    SurfaceView surf = sketch.getSurfaceView();
+    if (surf != null) {
+      glview = (GLSurfaceView)surf;
+    }
     reqNumSamples = qualityToSamples(antialias);
     registerListeners();
   }
@@ -216,7 +220,7 @@ public class PGLES extends PGL {
 
   @Override
   protected void requestDraw() {
-    if (graphics.initialized && sketch.canDraw()) {
+    if (graphics.initialized && sketch.canDraw() && glview != null) {
       glview.requestRender();
     }
   }
