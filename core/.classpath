@@ -2,6 +2,5 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="var" path="ANDROID_LIB"/>
-	<classpathentry kind="lib" path="library/cardboard.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
