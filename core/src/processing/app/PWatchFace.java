@@ -16,6 +16,7 @@ public class PWatchFace extends Gles2WatchFaceService implements PContainer {
   private PGraphics graphics;
 
   public void initDimensions() {
+    metrics = new DisplayMetrics();
     WindowManager man = (WindowManager) getSystemService(WINDOW_SERVICE);
     man.getDefaultDisplay().getMetrics(metrics);
   }
